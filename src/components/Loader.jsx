@@ -6,5 +6,5 @@ const Loader = () => {
     <div className="bars"></div>
   )
 }
-
+  
 export default Loader
