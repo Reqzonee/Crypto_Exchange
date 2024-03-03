@@ -6,7 +6,8 @@ import Exchanges from "./components/Exchanges";
 import CoinDetails from "./components/CoinDetails";
 import Footer from "./components/Footer";
 import SignUpForm from "./components/SignUp";
-
+import SignInForm from "./components/SignIn";
+ 
 function App() {
   return (
     <Router>
@@ -17,6 +18,7 @@ function App() {
         <Route path="/exchanges" element={<Exchanges/>}/>
         <Route path="/coin/:id" element={<CoinDetails/>}/>
         <Route path="/signup" element={<SignUpForm/>}/>
+        <Route path="/signin" element={<SignInForm/>}/>
       </Routes>
       <Footer/>
     </Router>

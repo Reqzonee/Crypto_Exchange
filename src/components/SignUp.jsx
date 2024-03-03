@@ -1,42 +1,51 @@
 import React from "react";
-import { Box, Flex, Text, Input, Button } from "@chakra-ui/react";
+import { Text, Input, Button } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 const SignUpForm = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const formDataObj = Object.fromEntries(formData.entries());
+    console.log(formDataObj);
+    // Here you can submit the formDataObj to your backend
+  };
+
   return (
-    <Box className="form" maxW="350px" bg="#fff" p="20px" borderRadius="20px">
-      <Text className="title" fontSize="28px" color="royalblue" fontWeight="600" letterSpacing="-1px" pos="relative" alignItems="center" pl="30px">
+    <form className="form" onSubmit={handleSubmit} style={{width: "100%", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <div>
+      <Text className="title" fontSize="28px" color="royalblue" fontWeight="600" letterSpacing="-1px" pb="10px">
         Sign Up
-        <Box pos="absolute" content="" h="16px" w="16px" borderRadius="50%" left="0px" bg="royalblue"></Box>
-        <Box pos="absolute" content="" h="18px" w="18px" borderRadius="50%" left="0px" bg="royalblue" animation="pulse 1s linear infinite"></Box>
       </Text>
       <Text className="message" color="rgba(88, 87, 87, 0.822)" fontSize="14px">
         Please fill in this form to create an account.
       </Text>
-      <Flex className="flex" direction="column" gap="10px">
+      <div className="flex" style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
         <label>
-          <Input className="input" type="text" placeholder="Username" />
-          <span>Username</span>
+          Username:
+          <Input className="input" type="text" name="username" placeholder="Username" />
         </label>
         <label>
-          <Input className="input" type="email" placeholder="Email" />
-          <span>Email</span>
+          Email:
+          <Input className="input" type="email" name="email" placeholder="Email" />
         </label>
         <label>
-          <Input className="input" type="password" placeholder="Password" />
-          <span>Password</span>
+          Password:
+          <Input className="input" type="password" name="password" placeholder="Password" />
         </label>
         <label>
-          <Input className="input" type="password" placeholder="Confirm Password" />
-          <span>Confirm Password</span>
+          Confirm Password:
+          <Input className="input" type="password" name="confirmPassword" placeholder="Confirm Password" />
         </label>
-      </Flex>
-      <Button className="submit" bg="royalblue" borderRadius="10px" color="#fff" fontSize="16px" _hover={{ bg: "rgb(56, 90, 194)" }}>
+      </div>
+      <Button className="submit" type="submit" bg="royalblue" borderRadius="10px" color="#fff" fontSize="16px" _hover={{ bg: "rgb(56, 90, 194)" }} mt="10px">
         Sign Up
       </Button>
       <Text className="signin" textAlign="center" fontSize="14px">
-        Already have an account? <a href="#" color="royalblue">Sign in</a>
+        Already have an account? <a href="#" style={{ color: "royalblue" }}><Link to="/signin">SignIn</Link></a>
       </Text>
-    </Box>
+      </div>
+    </form>
   );
 };
 

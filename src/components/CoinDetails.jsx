@@ -2,6 +2,7 @@ import {
   Badge,
   Box,
   Button,
+  Center,
   Container,
   HStack,
   Image,
@@ -105,7 +106,11 @@ switch (key) {
   return (
     <Container maxW={"container.xl"}>
       {loading ? (
+        <Center h="100vh">
+        {/* {" "} */}
+        {/* Centering the Loader vertically */}
         <Loader />
+      </Center>
       ) : (
         <>
           <Box width={"full"} borderWidth={1}>
