@@ -1,15 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, Input, Button } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const SignInForm = () => {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const formDataObj = Object.fromEntries(formData.entries());
-    console.log(formDataObj);
-    // Here you can submit the formDataObj to your backend
+  const [formData, setFormData] = useState({
+    email: "",
+    password: ""
+  });
+
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { email, password } = formData;
+
+      axios.post("http://localhost:3001/signin",  { email, password })
+      .then(result => {
+        console.log(result);
+        if(result.data === "Success"){
+            navigate('/')
+        }
+        // Redirect to dashboard or home page upon successful login
+        // navigate('/dashboard');
+      })
+      .catch(err => console.log(err));
+  };
+
 
   return (
     <form className="form" onSubmit={handleSubmit} style={{ width: "100%", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
@@ -23,11 +44,11 @@ const SignInForm = () => {
         <div className="flex" style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
           <label>
             Email:
-            <Input className="input" type="email" name="email" placeholder="Email" />
+            <Input className="input" type="email" name="email" placeholder="Email" onChange={handleChange} />
           </label>
           <label>
             Password:
-            <Input className="input" type="password" name="password" placeholder="Password" />
+            <Input className="input" type="password" name="password" placeholder="Password" onChange={handleChange} />
           </label>
         </div>
         <Button className="submit" type="submit" bg="royalblue" borderRadius="10px" color="#fff" fontSize="16px" _hover={{ bg: "rgb(56, 90, 194)" }} mt="10px">
